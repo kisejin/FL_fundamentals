@@ -89,12 +89,12 @@ The CIFAR-10 dataset is a widely used benchmark dataset for image classification
 
 Initially, the number of clients was fixed at 100, but due to the last client having a significantly higher data density (approximately 10 times), this number was adjusted to 50 for both IID and non-IID datasets.
 
-In the IID scenario, with the defined number of clients, classes, and classes per client, the number of clients selected to receive data for each class is calculated as $M = \frac{\text{\# clients}}{\text{\# classes}} \cdot \text{\# class\_per\_client}$. Since each client is intended to have data containing all classes, M should equal the total number of clients. Consequently, the data for each class i is evenly distributed among $\text{\# clients} - 1$ clients, with the remaining data allocated to the last client. This process is repeated until each client possesses data from all classes.
+In the IID scenario, with the defined number of clients, classes, and classes per client, the number of clients selected to receive data for each class is calculated as $M = \frac{\text{clients}}{\text{classes}} \cdot \text{class\_per\_client}$. Since each client is intended to have data containing all classes, $M$ should equal the total number of clients. Consequently, the data for each class $i$ is evenly distributed among $\text{clients} - 1$ clients, with the remaining data allocated to the last client. This process is repeated until each client possesses data from all classes.
 
-For the non-IID case, unbalanced data distribution is achieved by calculating $M$ as described above (e.g., for 50 clients, 10 classes, and 2 classes per client, $M = 10$). The number of samples n_i containing class i is then divided among 10 clients. This continues until 10 clients have samples from 2 classes, after which the next 10 clients are considered. The resulting $M$ clients will have 2 consecutive classes, and the subsequent $M'$, $M''$,... groups will be assigned the remaining consecutive class pairs. Notably, to ensure each client has data, the PFLlib repository defines a minimum number of samples as
+For the non-IID case, unbalanced data distribution is achieved by calculating $M$ as described above (e.g., for 50 clients, 10 classes, and 2 classes per client, $M = 10$). The number of samples $n_i$ containing class i is then divided among 10 clients. This continues until 10 clients have samples from 2 classes, after which the next 10 clients are considered. The resulting $M$ clients will have 2 consecutive classes, and the subsequent $M'$, $M''$,... groups will be assigned the remaining consecutive class pairs. Notably, to ensure each client has data, the PFLlib repository defines a minimum number of samples as
 
 $$
-\min\left(\frac{\text{batch\_size}}{1-\text{train\_ratio}}, \frac{\text{data}}{2 \cdot \text{\# clients}}\right)
+\min\left(\frac{\text{batch\_size}}{1-\text{train\_ratio}}, \frac{\text{data}}{2 \cdot \text{clients}}\right)
 $$
 
 ## 3. Data Partitioning Examples
