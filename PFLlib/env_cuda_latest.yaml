@@ -1,0 +1,28 @@
+name: pfllib
+channels:
+  - pytorch
+  - nvidia
+  - defaults
+dependencies:
+  - pip
+  - pandas
+  - scikit-learn
+  - scipy
+  - ujson
+  - h5py
+  - seaborn
+  - matplotlib
+  - click
+  - pip:
+      - torch
+      - torchaudio
+      - torchtext
+      - torchvision
+      - calmsize
+      - memory-profiler
+      - portalocker
+      - cvxpy
+      - higher
+      - diffusers
+      - accelerate
+      - transformers
