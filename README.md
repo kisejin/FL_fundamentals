@@ -622,7 +622,15 @@ In this experimental study, the PFLlib repository was utilized for evaluation an
     <figcaption>Figure 2: Impact of stragglers on training loss for FedAvg and FedProx across I.I.D. and non-I.I.D. datasets.</figcaption>
 </figure>
 
+<figure>
+    <img src="images/hinh3_full.png" alt="Training loss of FedProx with non-IID data for various mu candidates" style="width: 2000px; height: auto;">
+    <figcaption>Figure 3: Training loss and Test Accuracy of FedProx with non-IID data for various μ (proximal term) candidates.</figcaption>
+</figure>
+
+
 # VI. Analysis and Discussion: Analyze the results and discuss the impact of data distribution and different aggregation methods on model performance.
+
+## 1. System Heterogeneity and Data Distribution Impact on Federated Learning Performance
 
 In this experiment, we investigated the impact of varying levels of system heterogeneity on federated learning performance by adjusting the proportion of dropped devices (stragglers) to 0%, 50%, and 90%. As highlighted in the FedProx paper, the FedAvg algorithm discards stragglers upon reaching the global clock cycle, potentially discarding valuable information from incomplete works on devices. In contrast, FedProx incorporates partial updates from these straggler devices, enhancing the global model update.
 
@@ -635,8 +643,16 @@ The training loss analysis further supports these findings. In the IID dataset w
 In conclusion, this comprehensive analysis demonstrates that while FedAvg performs adequately with IID data and no stragglers, it struggles with non-IID data and high straggler percentages in showcases. FedProx ($\mu = 0$) mirrors this pattern, suggesting that the proximal term is generally crucial for mitigating the negative effects of system heterogeneity. Conversely, FedProx ($\mu > 0$) is consistently better than the other algorithms, particularly in challenging scenarios with non-IID data and high straggler percentages, underscoring the proximal term's effectiveness in enhancing stability and convergence.
 
 
+## 2. Tuning the Proximal Term (μ) in FedProx
 
-# VII. Instructions to run the code
+With the penalty constant μ fixed at 0.001, the question arises whether this value is suitable for achieving convergence in a system heterogeneous setting with non-IID Cifar-10 dataset. While an excessively large $\mu$ can slow down convergence and restrict weight updates to near their initial values, a small \$mu$ may render the proximal term ineffective. In this experiment, we propose to determine the optimal μ from the candidate set $\{0.001, 0.01, 0.1, 1\}$. As shown in Figure 3 and discussed in the FedProx paper, larger μ values lead to slower convergence, albeit with improved stability as observed in the training plots. Conversely, for $0 < \mu \leq 0.01$, despite fluctuations and the need for more communication rounds to converge, the results suggest that selecting μ within this range yields promising outcomes for this specific problem.
+
+
+# VII. Limitations
+A limitation of this experimental study is the absence of a dissimilarity metric to quantify the differences between local devices. Such a metric would provide a more intuitive understanding of why FedProx with μ > 0 struggles to converge in the non-IID data setting as the level of system heterogeneity increases.
+
+
+# VIII. Instructions to run the code
 
 This experimental study is based on the open-source code from the PFLlib repository, a Python library for distributed federated learning. To reproduce the results, please follow the steps outlined in the PFLlib repository documentation as below.    
 
