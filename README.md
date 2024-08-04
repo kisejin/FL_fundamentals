@@ -102,7 +102,7 @@ Run command:
 
 ```bash
 $cd PFLlib/dataset
-$python generate_Cifar10.py noniid - pat 50
+$python generate_Cifar10.py noniid - pat 50 Cifar10_niid # The arguments are  the data partitioning strategy, balance or not for partition dataset (- meaning unbalance), number of client and the dataset name
 ```
 
 Result
@@ -276,7 +276,7 @@ Run command:
 
 ```bash
 $cd PFLlib/dataset
-$python generate_Cifar10.py iid balance - 50
+$python generate_Cifar10.py iid balance - 50 Cifar10_iid # The arguments are  the data partitioning strategy, balance or not for partition dataset, partition when option is unbalance, number of client and the dataset name
 ```
 
 Result:
@@ -448,7 +448,7 @@ Utilizing the CIFAR-10 dataset, I employed a fundamental CNN architecture as sug
 
 # IV. Federated Learning Setup
 
-In this experimental study, the PFLlib repository was utilized for evaluation and comparison, chosen partly due to recommendations and its comprehensive handling of functionalities required for experiments based on the FedAvg and FedProx papers. While certain hyperparameters were adopted from these papers and kept constant, others were slightly adjusted to meet specific requirements:
+In this experimental study, the PFLlib repository was utilized for evaluation and comparison, chosen partly due to recommendations and its comprehensive handling of functionalities required for experiments based on the FedAvg and FedProx papers. To facilitate the experimental process, certain modifications were made to the original PFLlib repository, streamlining the training and evaluation procedures. While certain hyper-parameters were adopted from these papers and kept constant, others were slightly adjusted to meet specific requirements:
 
 - Number of clients (K): 50 clients were selected as this represents a substantial number suitable for the CIFAR-10 dataset, with less sample distribution variance compared to 100 clients where the last client has 10 times fewer local samples than the preceding clients.
 - Communication rounds (T): 200 rounds of communication between the server and clients were deemed reasonable for multiple evaluations while saving computational time.
@@ -704,7 +704,7 @@ $conda env create -f env_cuda_latest.yaml # You may need to downgrade the torch 
   - drop rate: [`0.0`, `0.5`, `0.9`] active clients
   - mu: fixed `0.001` for FedProx
 
-- As long hyper-parameters are set, so I compress it into the `run_fedavg.sh` and `run_fedprox.sh` files. You can modify these files to change the hyper-parameters.
+- As long hyper-parameters are set, so I compress it into the `run_fedavg.sh` and `run_fedprox.sh` files. You can modify these files to change the hyper-parameters. Detail training configurations can be found in the `Run_FL.ipynb` file.
 
 # Citation
 

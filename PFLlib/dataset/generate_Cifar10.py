@@ -33,6 +33,17 @@ dir_path = "Cifar10_niid/"
 
 # Allocate data to users
 def generate_dataset(dir_path, num_clients, niid, balance, partition):
+    """
+    Generates and allocates the CIFAR-10 dataset to multiple clients.
+
+    Parameters:
+    dir_path (str): The directory path where the dataset will be saved.
+    num_clients (int): The number of clients to allocate the data to.
+    niid (bool): Whether the data should be non-IID (non-Independent and Identically Distributed).
+    balance (bool): Whether the data should be balanced among clients.
+    partition (str): The type of partitioning to use for the dataset.
+    
+    """
     if not os.path.exists(dir_path):
         os.makedirs(dir_path)
 
@@ -130,9 +141,13 @@ def generate_dataset(dir_path, num_clients, niid, balance, partition):
 
 
 if __name__ == "__main__":
+    # Parse command-line arguments
     niid = True if sys.argv[1] == "noniid" else False
     balance = True if sys.argv[2] == "balance" else False
     partition = sys.argv[3] if sys.argv[3] != "-" else None
     num_clients = int(sys.argv[4]) if sys.argv[4] != "-" else num_clients
-
+    dir_path = sys.argv[5] if sys.argv[5] != "-" else dir_path
+    dir_path += "/"
+    
+    # Generate and save the dataset
     generate_dataset(dir_path, num_clients, niid, balance, partition)
