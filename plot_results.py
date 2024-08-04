@@ -35,18 +35,33 @@ def create_result(list_file):
     }
 
     for file in list_file:
-        file_lower = file.lower()
+        fi_lr = file.lower()
         with h5py.File(file, "r") as f:
             test_acc, train_loss = f["rs_test_acc"][:], f["rs_train_loss"][:]
 
-        for alg in result:
-            if alg in file_lower:
-                for ds in ["iid", "niid"]:
-                    if ds in file_lower and (
-                        ds != "iid" or "niid" not in file_lower
-                    ):
-                        result[alg][ds]["test_acc"] = test_acc
-                        result[alg][ds]["train_loss"] = train_loss
+        if "fedavg" in fi_lr:
+            if "iid" in fi_lr and "niid" not in fi_lr:
+                result["fedavg"]["iid"]["test_acc"] = test_acc
+                result["fedavg"]["iid"]["train_loss"] = train_loss
+            elif "niid" in fi_lr:
+                result["fedavg"]["niid"]["test_acc"] = test_acc
+                result["fedavg"]["niid"]["train_loss"] = train_loss
+
+        elif "fedprox" in fi_lr and "001" in fi_lr:
+            if "iid" in fi_lr and "niid" not in fi_lr:
+                result["fedprox_mu_lt_0"]["iid"]["test_acc"] = test_acc
+                result["fedprox_mu_lt_0"]["iid"]["train_loss"] = train_loss
+            elif "niid" in fi_lr:
+                result["fedprox_mu_lt_0"]["niid"]["test_acc"] = test_acc
+                result["fedprox_mu_lt_0"]["niid"]["train_loss"] = train_loss
+
+        elif "fedprox" in fi_lr and "mu-0." in fi_lr:
+            if "iid" in fi_lr and "niid" not in fi_lr:
+                result["fedprox_mu_0"]["iid"]["test_acc"] = test_acc
+                result["fedprox_mu_0"]["iid"]["train_loss"] = train_loss
+            elif "niid" in fi_lr:
+                result["fedprox_mu_0"]["niid"]["test_acc"] = test_acc
+                result["fedprox_mu_0"]["niid"]["train_loss"] = train_loss
 
     return result
 
