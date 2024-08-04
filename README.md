@@ -706,6 +706,11 @@ $conda env create -f env_cuda_latest.yaml # You may need to downgrade the torch 
 
 - As long hyper-parameters are set, so I compress it into the `run_fedavg.sh` and `run_fedprox.sh` files. You can modify these files to change the hyper-parameters. Detail training configurations can be found in the `Run_FL.ipynb` file.
 
+- Show the results by plotting the figures in the `plot_results.py` file.
+   ```bash
+   $python plot_results.py --type_plot plot_drop_rate --mode test_acc --output_name test_acc_drop_rate
+   ``` 
+   The detail the configuration arguments can be found in the `plot_results.py` file.
 # Citation
 
 ```
