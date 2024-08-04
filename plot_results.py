@@ -198,6 +198,27 @@ def plot_mu_candidate(output_name):
 
     :param output_name: Name of the output file
     """
+    results = {}
+    list_values = [0.001, 0.01, 0.1, 1]
+    for value in list_values:
+        results["mu_" + str(value)] = {"test_acc": None, "train_loss": None}
+
+    list_files = [
+        "Cifar10_iid_FedProx_train_C-0_3__drop-30__mu-0_001.h5",
+        "Cifar10_iid_FedProx_train_C-0_3__drop-30__mu-0_01.h5",
+        "Cifar10_iid_FedProx_train_C-0_3__drop-30__mu-0_1.h5",
+        "Cifar10_iid_FedProx_train_C-0_3__drop-30__mu-1.h5",
+    ]
+
+    for value, file in zip(list_values, list_files):
+        with h5py.File(file, "r") as file:
+            test_acc, train_loss = (
+                file["rs_test_acc"][:],
+                file["rs_train_loss"][:],
+            )
+            results["mu_" + str(value)]["test_acc"] = test_acc
+            results["mu_" + str(value)]["train_loss"] = train_loss
+
     rounds = [200] * 4
     keys = ["mu_0.001", "mu_0.01", "mu_0.1", "mu_1"]
     labels = [r"$\mu$=0.001", r"$\mu$=0.01", r"$\mu$=0.1", r"$\mu$=1"]
