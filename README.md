@@ -628,7 +628,7 @@ In this experimental study, the PFLlib repository was utilized for evaluation an
 </figure>
 
 
-# VI. Analysis and Discussion: Analyze the results and discuss the impact of data distribution and different aggregation methods on model performance.
+# VI. Analysis and Discussion: 
 
 ## 1. System Heterogeneity and Data Distribution Impact on Federated Learning Performance
 
