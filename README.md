@@ -270,7 +270,7 @@ Client 2	 Size of data: 549	 Labels:  [0 1]
     ```
 </details>
 
-## 3.2. Example of data partitioning for IID scenario
+### 3.2. Example of data partitioning for IID scenario
 
 Run command:
 
